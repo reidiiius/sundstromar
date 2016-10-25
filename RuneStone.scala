@@ -118,51 +118,45 @@ object RuneStone {
       return ;
     }
 
-    def sFn(rsrc: String) = rsrc.slice(25, 60) + rsrc.slice(00, 25)
-    def sCn(rsrc: String) = rsrc.slice(00, 60) + rsrc.slice(00, 00)
-    def sGn(rsrc: String) = rsrc.slice(35, 60) + rsrc.slice(00, 35)
-    def sDn(rsrc: String) = rsrc.slice(10, 60) + rsrc.slice(00, 10)
-    def sAn(rsrc: String) = rsrc.slice(45, 60) + rsrc.slice(00, 45)
-    def sEn(rsrc: String) = rsrc.slice(20, 60) + rsrc.slice(00, 20)
-    def sBn(rsrc: String) = rsrc.slice(55, 60) + rsrc.slice(00, 55)
-    def sFk(rsrc: String) = rsrc.slice(30, 60) + rsrc.slice(00, 30)
-    def sCk(rsrc: String) = rsrc.slice(05, 60) + rsrc.slice(00, 05)
-    def sGk(rsrc: String) = rsrc.slice(40, 60) + rsrc.slice(00, 40)
-    def sDk(rsrc: String) = rsrc.slice(15, 60) + rsrc.slice(00, 15)
-    def sAk(rsrc: String) = rsrc.slice(50, 60) + rsrc.slice(00, 50)
+    def sFn(x: String) = x.slice(25, 60) + x.slice( 0, 25)
+    def sCn(x: String) = x.slice( 0, 60) + x.slice( 0,  0)
+    def sGn(x: String) = x.slice(35, 60) + x.slice( 0, 35)
+    def sDn(x: String) = x.slice(10, 60) + x.slice( 0, 10)
+    def sAn(x: String) = x.slice(45, 60) + x.slice( 0, 45)
+    def sEn(x: String) = x.slice(20, 60) + x.slice( 0, 20)
+    def sBn(x: String) = x.slice(55, 60) + x.slice( 0, 55)
+    def sFk(x: String) = x.slice(30, 60) + x.slice( 0, 30)
+    def sCk(x: String) = x.slice(05, 60) + x.slice( 0, 05)
+    def sGk(x: String) = x.slice(40, 60) + x.slice( 0, 40)
+    def sDk(x: String) = x.slice(15, 60) + x.slice( 0, 15)
+    def sAk(x: String) = x.slice(50, 60) + x.slice( 0, 50)
 
-    def celloTuning(rsrc: String) {
-      println("\t" + sEn(rsrc))
-      println("\t" + sAn(rsrc))
-      println("\t" + sDn(rsrc))
-      println("\t" + sGn(rsrc))
-      println("\t" + sCn(rsrc))
+    def celloTuning(x: String) {
+      var layout = Array(sEn(x), sAn(x), sDn(x), sGn(x), sCn(x))
+      for (i <- layout) {
+        println("\t%s".format(i))
+      }
     }
 
-    def guitarTuning(rsrc: String) {
-      println("\t" + sEn(rsrc))
-      println("\t" + sBn(rsrc))
-      println("\t" + sGn(rsrc))
-      println("\t" + sDn(rsrc))
-      println("\t" + sAn(rsrc))
-      println("\t" + sEn(rsrc))
+    def guitarTuning(x: String) {
+      var layout = Array(sEn(x), sBn(x), sGn(x), sDn(x), sAn(x), sEn(x))
+      for (i <- layout) {
+        println("\t%s".format(i))
+      }
     }
 
-    def quartalTuning(rsrc: String) {
-      println("\t" + sFn(rsrc))
-      println("\t" + sCn(rsrc))
-      println("\t" + sGn(rsrc))
-      println("\t" + sDn(rsrc))
-      println("\t" + sAn(rsrc))
-      println("\t" + sEn(rsrc))
-      println("\t" + sBn(rsrc))
+    def quartalTuning(x: String) {
+      var layout = Array(sFn(x), sCn(x), sGn(x), sDn(x), sAn(x), sEn(x), sBn(x))
+      for (i <- layout) {
+        println("\t%s".format(i))
+      }
     }
 
     for (qp <- args) {
       berzelius.get(qp) match {
-        case Some(rsrc) =>
+        case Some(x) =>
           println("\n\n\t%s-v%s".format(qp, epochian))
-          guitarTuning(rsrc: String)
+          guitarTuning(x: String)
         case None =>
           println("\n\n\t%s %s".format(qp, "?"))
       }
