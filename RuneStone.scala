@@ -90,6 +90,34 @@ object RuneStone {
 
   def main(args: Array[String]) {
 
+    val accidentals = berzelius.keys.toList
+
+    val epochian = System.currentTimeMillis()
+
+    def menuRow(bow: Int, stern: Int) {
+      for (item <- accidentals.slice(bow, stern)) {
+        print("\t%s".format(item))
+      }
+      println()
+    }
+
+    if (args.size < 1) {
+      println()
+      menuRow( 0,  8)
+      menuRow( 8, 16)
+      menuRow(16, 24)
+      menuRow(24, 32)
+      menuRow(32, 40)
+      menuRow(40, 48)
+      menuRow(48, 56)
+      menuRow(56, 64)
+      menuRow(64, 72)
+      menuRow(72, 80)
+      menuRow(80, 83)
+      println()
+      return ;
+    }
+
     def sFn(rsrc: String) = rsrc.slice(25, 60) + rsrc.slice(00, 25)
     def sCn(rsrc: String) = rsrc.slice(00, 60) + rsrc.slice(00, 00)
     def sGn(rsrc: String) = rsrc.slice(35, 60) + rsrc.slice(00, 35)
@@ -130,18 +158,18 @@ object RuneStone {
       println("\t" + sBn(rsrc))
     }
 
-    val epochian = System.currentTimeMillis()
-
     for (qp <- args) {
       berzelius.get(qp) match {
         case Some(rsrc) =>
-          println("\n\n\t" + qp + "-v" + epochian)
+          println("\n\n\t%s-v%s".format(qp, epochian))
           guitarTuning(rsrc: String)
         case None =>
-          println("\n\n\t" + qp + " ?")
+          println("\n\n\t%s %s".format(qp, "?"))
       }
     }
+
     println("\n")
+
   }
 
 }
