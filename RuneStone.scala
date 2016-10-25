@@ -90,7 +90,7 @@ object RuneStone {
 
   def main(args: Array[String]) {
 
-    val accidentals = berzelius.keys.toList
+    val accidentals = berzelius.keys.toList.sorted
 
     val epochian = System.currentTimeMillis()
 
