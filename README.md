@@ -10,17 +10,29 @@ Telegraphy
 ---
 
 ### Usage
-command line
+Command-line
 
-    cd sundstromar
+    cd sundstromar/
+
+:
 
     scalac RuneStone.scala
 
-    scala RuneStone j17 k34
+:
 
-    scala RuneStone n0 j3 j36 j6
+    scala neoclassic.RuneStone
 
-    scala RuneStone j2 j23 j236 j26
+:
+
+    scala neoclassic.RuneStone j17 k34
+
+:
+
+    scala neoclassic.RuneStone n0 j3 j36 j6
+
+:
+
+    scala neoclassic.RuneStone j2 j23 j236 j26
 
 ---
 
