@@ -113,9 +113,11 @@ object RuneStone {
 
   def obtain(sign: String): Int = astral.getOrElse(sign, 0)
 
-  def acquire(clef: String): String = berzelian.get(clef) match {
-    case Some(wire) => wire
-    case None => ""
+  def acquire(clef: String): String = {
+    berzelian.get(clef) match {
+      case Some(wire) => wire
+      case None => ""
+    }
   }
 
   def recycle(keys: List[String], numb: Int): Unit = {
@@ -141,9 +143,7 @@ object RuneStone {
       val sewn: String = head + tail
       val stub: String = sewn.slice(0, 4)
       sewn + stub
-    } else {
-      acquire("i0")
-    }
+    } else acquire("i0")
   }
 
   def beadgcf(): List[String] = {
@@ -182,7 +182,7 @@ object RuneStone {
       case "cgdae" => cgdae()
       case "eadgbe" => eadgbe()
       case "fkbjdn" => fkbjdn()
-      case _ => List.apply("sgr")
+      case _ => List.apply("oph")
     }
   }
 
@@ -198,13 +198,20 @@ object RuneStone {
   }
 
   def main(args: Array[String]): Unit = {
-    if (args.length > 0) {
+    val size: Int = args.length
+    if (size > 0 && size < accids.length) {
       val tune: String = "eadgbe"
+      val span: Int = 9
       println()
-      for (stem <- args) display(tune, stem)
-    } else {
-      palette()
-    }
+      for (stem <- args) {
+        if (stem.length < span) {
+          display(tune, stem)
+        } else {
+          val snip: String = stem.slice(0, span - 1)
+          println("\t%s.. ?\n".format(snip))
+        }
+      }
+    } else palette()
   }
 
 } // terminus
