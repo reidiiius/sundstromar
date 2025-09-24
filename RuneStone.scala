@@ -198,20 +198,21 @@ object RuneStone {
   }
 
   def main(args: Array[String]): Unit = {
-    val size: Int = args.length
-    if (size > 0 && size < accids.length) {
-      val tune: String = "eadgbe"
+    if (args.isEmpty) palette()
+    else if (args.length > accids.length)
+      println("Request denied!")
+    else {
       val span: Int = 9
+      val tune: String = "eadgbe"
       println()
       for (stem <- args) {
-        if (stem.length < span) {
-          display(tune, stem)
-        } else {
+        if (stem.length < span) display(tune, stem)
+        else {
           val snip: String = stem.slice(0, span - 1)
           println("\t%s.. ?\n".format(snip))
         }
       }
-    } else palette()
+    }
   }
 
 } // terminus
