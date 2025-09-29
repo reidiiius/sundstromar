@@ -1,8 +1,8 @@
-package neoclassic
+package sundstromar.neoclassic
 
 object RuneStone {
 
-  val berzelian: Map[String, String] = Map(
+  val Berzelian: Map[String, String] = Map(
        "i0" -> "____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ",
        "j2" -> "HgHg PuFe ____ ____ CuNp PbAu ____ AuPb ____ AgUr ____ FePu ",
        "j3" -> "HgSn ____ SnHg UrFe ____ PbAg ____ AuAu ____ AgPb ____ FeUr ",
@@ -92,7 +92,7 @@ object RuneStone {
   "k1j56w7" -> "____ AuUr NpSn ____ TiHg FeFe HgTi ____ SnNp UrAu ____ ____ ",
   "k2j56w7" -> "NpCu ____ ____ FePu HgHg PuFe SnTi ____ CuNp PbAu ____ ____ ")
 
-  val accids: List[String] = berzelian.keys.toList.sorted
+  val accids: List[String] = Berzelian.keys.toList.sorted
 
   val astral: Map[String, Int] = Map(
     "aqr" -> 50,
@@ -114,7 +114,7 @@ object RuneStone {
   def obtain(sign: String): Int = astral.getOrElse(sign, 0)
 
   def acquire(clef: String): String = {
-    berzelian.get(clef) match {
+    Berzelian.get(clef) match {
       case Some(wire) => wire
       case None => ""
     }
@@ -130,7 +130,7 @@ object RuneStone {
     }
   }
 
-  def palette(): Unit = {
+  def palette: Unit = {
     recycle(accids, 0)
     println("\n")
   }
@@ -146,24 +146,24 @@ object RuneStone {
     } else acquire("i0")
   }
 
-  def beadgcf(): List[String] = {
-    List.apply("cnc", "sgr", "tau", "lib", "psc", "leo", "cap")
+  def beadgcf: List[String] = {
+    List("cnc", "sgr", "tau", "lib", "psc", "leo", "cap")
   }
 
-  def bfbfb(): List[String] = {
-    List.apply("cap", "cnc", "cap", "cnc", "cap")
+  def bfbfb: List[String] = {
+    List("cap", "cnc", "cap", "cnc", "cap")
   }
 
-  def cgdae(): List[String] = {
-    List.apply("leo", "psc", "lib", "tau", "sgr")
+  def cgdae: List[String] = {
+    List("leo", "psc", "lib", "tau", "sgr")
   }
 
-  def eadgbe(): List[String] = {
-    List.apply("leo", "cap", "tau", "lib", "psc", "leo")
+  def eadgbe: List[String] = {
+    List("leo", "cap", "tau", "lib", "psc", "leo")
   }
 
-  def fkbjdn(): List[String] = {
-    List.apply("lib", "aqr", "gem", "lib", "aqr", "gem")
+  def fkbjdn: List[String] = {
+    List("lib", "aqr", "gem", "lib", "aqr", "gem")
   }
 
   def lattice(sols: List[String], wire: String): Unit = {
@@ -177,12 +177,12 @@ object RuneStone {
 
   def pegasus(tune: String): List[String] = {
     tune match {
-      case "beadgcf" => beadgcf()
-      case "bfbfb" => bfbfb()
-      case "cgdae" => cgdae()
-      case "eadgbe" => eadgbe()
-      case "fkbjdn" => fkbjdn()
-      case _ => List.apply("oph")
+      case "beadgcf" => beadgcf
+      case "bfbfb" => bfbfb
+      case "cgdae" => cgdae
+      case "eadgbe" => eadgbe
+      case "fkbjdn" => fkbjdn
+      case _ => List("oph")
     }
   }
 
@@ -198,7 +198,7 @@ object RuneStone {
   }
 
   def main(args: Array[String]): Unit = {
-    if (args.isEmpty) palette()
+    if (args.isEmpty) palette
     else if (args.length > accids.length)
       println("Request denied!")
     else {
