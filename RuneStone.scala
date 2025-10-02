@@ -8,7 +8,7 @@ object RuneStone {
 
   /** Databank of musical scales
    *
-   *  scala> val natural: String = RuneStone.Berzelian("n0")
+   *  scala> val ionian: String = RuneStone.Berzelian("n0")
    */
   val Berzelian: Map[String, String] = Map(
        "i0" -> "____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ",
@@ -100,9 +100,9 @@ object RuneStone {
   "k1j56w7" -> "____ AuUr NpSn ____ TiHg FeFe HgTi ____ SnNp UrAu ____ ____ ",
   "k2j56w7" -> "NpCu ____ ____ FePu HgHg PuFe SnTi ____ CuNp PbAu ____ ____ ")
 
-  /** List of string keys for Berzelian
+  /** List of string keys of Berzelian
    *
-   *  scala> val keys: List[String] = RuneStone.accids
+   *  scala> val clefs: List[String] = RuneStone.accids
    */
   val accids: List[String] = Berzelian.keys.toList.sorted
 
@@ -139,7 +139,7 @@ object RuneStone {
 
   /** Returns string value from Berzelian
    *
-   *  scala> val mystic: String = RuneStone.acquire("j3")
+   *  scala> val minion: String = RuneStone.acquire("j3")
    */
   def acquire(clef: String): String = {
     Berzelian.get(clef) match {
@@ -150,7 +150,7 @@ object RuneStone {
 
   /** Printout keys from Berzelian
    *
-   *  scala> RuneStone.recycle(keys, 0); println()
+   *  scala> RuneStone.recycle(clefs, 0); println()
    */
   def recycle(keys: List[String], numb: Int): Unit = {
     if (numb >= (keys.length - 1)) {
@@ -173,7 +173,7 @@ object RuneStone {
 
   /** Returns tuned string
    *
-   *  scala> var cord: String = RuneStone.tension(mystic, 25)
+   *  scala> var twine: String = RuneStone.tension(minion, 25)
    */
   def tension(wire: String, spot: Int): String = {
     val span: Int = wire.length
@@ -188,7 +188,7 @@ object RuneStone {
 
   /** Returns List of strings for tuning
    *
-   *  scala> val p4t: List[String] = RuneStone.beadgcf
+   *  scala> val p4t7: List[String] = RuneStone.beadgcf
    */
   def beadgcf: List[String] = {
     List("cnc", "sgr", "tau", "lib", "psc", "leo", "cap")
@@ -196,7 +196,7 @@ object RuneStone {
 
   /** ibidem
    *
-   *  scala> val a4t: List[String] = RuneStone.bfbfb
+   *  scala> val a4t5: List[String] = RuneStone.bfbfb
    */
   def bfbfb: List[String] = {
     List("cap", "cnc", "cap", "cnc", "cap")
@@ -204,7 +204,7 @@ object RuneStone {
 
   /** ibidem
    *
-   *  scala> val p5t: List[String] = RuneStone.cgdae
+   *  scala> val p5t5: List[String] = RuneStone.cgdae
    */
   def cgdae: List[String] = {
     List("leo", "psc", "lib", "tau", "sgr")
@@ -212,7 +212,7 @@ object RuneStone {
 
   /** ibidem
    *
-   *  scala> val gtr: List[String] = RuneStone.eadgbe
+   *  scala> val gtr6: List[String] = RuneStone.eadgbe
    */
   def eadgbe: List[String] = {
     List("leo", "cap", "tau", "lib", "psc", "leo")
@@ -220,7 +220,7 @@ object RuneStone {
 
   /** ibidem
    *
-   *  scala> val m3t: List[String] = RuneStone.fkbjdn
+   *  scala> val m3t6: List[String] = RuneStone.fkbjdn
    */
   def fkbjdn: List[String] = {
     List("lib", "aqr", "gem", "lib", "aqr", "gem")
@@ -228,7 +228,7 @@ object RuneStone {
 
   /** Printout fingerboard diagram
    *
-   *  scala> RuneStone.lattice(gtr, mystic)
+   *  scala> RuneStone.lattice(gtr6, minion)
    */
   def lattice(sols: List[String], wire: String): Unit = {
     var cord: String = tension(wire, 0)
