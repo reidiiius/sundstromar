@@ -1,7 +1,15 @@
 package sundstromar.neoclassic
 
+/** Chordophone Cosmography
+ *
+ *  scala> import sundstromar.neoclassic.RuneStone
+ */
 object RuneStone {
 
+  /** Databank of musical scales
+   *
+   *  scala> val natural: String = RuneStone.Berzelian("n0")
+   */
   val Berzelian: Map[String, String] = Map(
        "i0" -> "____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ",
        "j2" -> "HgHg PuFe ____ ____ CuNp PbAu ____ AuPb ____ AgUr ____ FePu ",
@@ -92,8 +100,16 @@ object RuneStone {
   "k1j56w7" -> "____ AuUr NpSn ____ TiHg FeFe HgTi ____ SnNp UrAu ____ ____ ",
   "k2j56w7" -> "NpCu ____ ____ FePu HgHg PuFe SnTi ____ CuNp PbAu ____ ____ ")
 
+  /** List of string keys for Berzelian
+   *
+   *  scala> val keys: List[String] = RuneStone.accids
+   */
   val accids: List[String] = Berzelian.keys.toList.sorted
 
+  /** Databank of indices used for slicing strings
+   *
+   *  scala> val zilch: Int = RuneStone.astral("oph")
+   */
   val astral: Map[String, Int] = Map(
     "aqr" -> 50,
     "ari" -> 40,
@@ -109,10 +125,22 @@ object RuneStone {
     "tau" -> 35,
     "vir" -> 15)
 
+  /** Timestamp used for version control
+   *
+   *  scala> var epoch: String = RuneStone.aeon.toString()
+   */
   val aeon: Long = System.currentTimeMillis()
 
+  /** Returns index used for string slice
+   *
+   *  scala> val five: Int = RuneStone.obtain("sco")
+   */
   def obtain(sign: String): Int = astral.getOrElse(sign, 0)
 
+  /** Returns string value from Berzelian
+   *
+   *  scala> val mystic: String = RuneStone.acquire("j3")
+   */
   def acquire(clef: String): String = {
     Berzelian.get(clef) match {
       case Some(wire) => wire
@@ -120,6 +148,10 @@ object RuneStone {
     }
   }
 
+  /** Printout keys from Berzelian
+   *
+   *  scala> RuneStone.recycle(keys, 0); println()
+   */
   def recycle(keys: List[String], numb: Int): Unit = {
     if (numb >= (keys.length - 1)) {
       print("\t%s".format(keys(numb)))
@@ -130,11 +162,19 @@ object RuneStone {
     }
   }
 
+  /** Concisely printout Berzelian keys
+   *
+   *  scala> RuneStone.palette
+   */
   def palette: Unit = {
     recycle(accids, 0)
     println("\n")
   }
 
+  /** Returns tuned string
+   *
+   *  scala> var cord: String = RuneStone.tension(mystic, 25)
+   */
   def tension(wire: String, spot: Int): String = {
     val span: Int = wire.length
     if (spot <= span) {
@@ -146,26 +186,50 @@ object RuneStone {
     } else acquire("i0")
   }
 
+  /** Returns List of strings for tuning
+   *
+   *  scala> val p4t: List[String] = RuneStone.beadgcf
+   */
   def beadgcf: List[String] = {
     List("cnc", "sgr", "tau", "lib", "psc", "leo", "cap")
   }
 
+  /** ibidem
+   *
+   *  scala> val a4t: List[String] = RuneStone.bfbfb
+   */
   def bfbfb: List[String] = {
     List("cap", "cnc", "cap", "cnc", "cap")
   }
 
+  /** ibidem
+   *
+   *  scala> val p5t: List[String] = RuneStone.cgdae
+   */
   def cgdae: List[String] = {
     List("leo", "psc", "lib", "tau", "sgr")
   }
 
+  /** ibidem
+   *
+   *  scala> val gtr: List[String] = RuneStone.eadgbe
+   */
   def eadgbe: List[String] = {
     List("leo", "cap", "tau", "lib", "psc", "leo")
   }
 
+  /** ibidem
+   *
+   *  scala> val m3t: List[String] = RuneStone.fkbjdn
+   */
   def fkbjdn: List[String] = {
     List("lib", "aqr", "gem", "lib", "aqr", "gem")
   }
 
+  /** Printout fingerboard diagram
+   *
+   *  scala> RuneStone.lattice(gtr, mystic)
+   */
   def lattice(sols: List[String], wire: String): Unit = {
     var cord: String = tension(wire, 0)
     for (sign <- sols) {
@@ -175,6 +239,10 @@ object RuneStone {
     println()
   }
 
+  /** Returns List of strings for tuning
+   *
+   *  scala> val cello: List[String] = RuneStone.pegasus("cgdae")
+   */
   def pegasus(tune: String): List[String] = {
     tune match {
       case "beadgcf" => beadgcf
@@ -186,6 +254,10 @@ object RuneStone {
     }
   }
 
+  /** Printout diagram with tuning, key, and timestamp
+   *
+   *  scala> RuneStone.display("cgdae", "j6")
+   */
   def display(tune: String, stem: String): Unit = {
     if (accids.contains(stem)) {
       val wire: String = acquire(stem)
@@ -197,6 +269,10 @@ object RuneStone {
     }
   }
 
+  /** Application entryway
+   *
+   *  scala> RuneStone.main(Array("n0", "j3"))
+   */
   def main(args: Array[String]): Unit = {
     if (args.isEmpty) palette
     else if (args.length > accids.length)
