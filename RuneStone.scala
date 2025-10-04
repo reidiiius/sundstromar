@@ -100,7 +100,7 @@ object RuneStone {
   "k1j56w7" -> "____ AuUr NpSn ____ TiHg FeFe HgTi ____ SnNp UrAu ____ ____ ",
   "k2j56w7" -> "NpCu ____ ____ FePu HgHg PuFe SnTi ____ CuNp PbAu ____ ____ ")
 
-  /** List of string keys of Berzelian
+  /** List of string keys from Berzelian
    *
    *  scala> val clefs: List[String] = RuneStone.accids
    */
@@ -108,7 +108,7 @@ object RuneStone {
 
   /** Databank of indices used for slicing strings
    *
-   *  scala> val zilch: Int = RuneStone.astral("oph")
+   *  scala> val zero: Int = RuneStone.astral("oph")
    */
   val astral: Map[String, Int] = Map(
     "aqr" -> 50,
@@ -124,6 +124,13 @@ object RuneStone {
     "sgr" -> 60,
     "tau" -> 35,
     "vir" -> 15)
+
+  /** List of instrument tunings
+   *
+   *  scala> val thirds: String = RuneStone.stocks(4)
+   */
+  val stocks: List[String] = List(
+    "beadgcf", "bfbfb", "cgdae", "eadgbe", "fkbjdn", "piano")
 
   /** Timestamp used for version control
    *
@@ -148,25 +155,36 @@ object RuneStone {
     }
   }
 
-  /** Printout keys from Berzelian
+  /** Printout List members formatted horizontally
    *
-   *  scala> RuneStone.recycle(clefs, 0); println()
+   *  scala> RuneStone.banner(RuneStone.stocks)
+   */
+  def banner(slats: List[String]): Unit = {
+    print("\n\t")
+    for (stem <- slats) print("\t%s".format(stem))
+    println
+  }
+
+  /** Printout List members formatted columned
+   *
+   *  scala> RuneStone.recycle(clefs, 0); println
    */
   def recycle(keys: List[String], numb: Int): Unit = {
     if (numb >= (keys.length - 1)) {
       print("\t%s".format(keys(numb)))
     } else {
-      if ((numb % 8) == 0) println()
+      if ((numb % 8) == 0) println
       print("\t%s".format(keys(numb)))
       recycle(keys, (numb + 1))
     }
   }
 
-  /** Concisely printout Berzelian keys
+  /** Printout tunings from stocks and keys from Berzelian
    *
    *  scala> RuneStone.palette
    */
   def palette: Unit = {
+    banner(stocks)
     recycle(accids, 0)
     println("\n")
   }
@@ -236,7 +254,7 @@ object RuneStone {
       cord = tension(wire, obtain(sign))
       println("\t%s".format(cord))
     }
-    println()
+    println
   }
 
   /** Returns List of strings for tuning
@@ -269,21 +287,48 @@ object RuneStone {
     }
   }
 
+  /** Determine whether string begins with be, bf, cg, ea, fk, pi
+   *
+   *  scala> var boon: Boolean = RuneStone.guardian("cgdae")
+   */
+  def guardian(stem: String): Boolean = {
+    stem.startsWith("be") ||
+    stem.startsWith("bf") ||
+    stem.startsWith("cg") ||
+    stem.startsWith("ea") ||
+    stem.startsWith("fk") ||
+    stem.startsWith("pi")
+  }
+
+  /** Determine whether string begins with j, k, n
+   *
+   *  scala> var bone: Boolean = RuneStone.sentinel("k5")
+   */
+  def sentinel(stem: String): Boolean = {
+    stem.startsWith("j") ||
+    stem.startsWith("k") ||
+    stem.startsWith("n")
+  }
+
   /** Application entryway
    *
-   *  scala> RuneStone.main(Array("n0", "j3"))
+   *  scala> RuneStone.main(Array("eadgbe", "n0", "j3"))
    */
   def main(args: Array[String]): Unit = {
     if (args.isEmpty) palette
     else if (args.length > accids.length)
       println("Request denied!")
     else {
+      val bops: Array[Boolean] = args.map(sentinel(_))
+      val bout: Boolean = bops.exists(bowl => bowl == true)
       val span: Int = 9
-      val tune: String = "eadgbe"
-      println()
+      var tune: String = "beadgcf"
+      if (bout) println else palette
       for (stem <- args) {
-        if (stem.length < span) display(tune, stem)
-        else {
+        if (stem.length < span) {
+          if (guardian(stem)) tune = stem
+          if (sentinel(stem)) display(tune, stem)
+        } else {
           val snip: String = stem.slice(0, span - 1)
           println("\t%s.. ?\n".format(snip))
         }

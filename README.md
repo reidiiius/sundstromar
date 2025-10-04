@@ -20,15 +20,19 @@ Command-line
 
 :
 
-    scala sundstromar.neoclassic.RuneStone j3 j3k6 k6 j17
+    scala sundstromar.neoclassic.RuneStone k6 j17
 
 :
 
-    scala sundstromar.neoclassic.RuneStone n0 j3 j36 j6
+    scala sundstromar.neoclassic.RuneStone eadgbe n0 j3
 
 :
 
-    scala sundstromar.neoclassic.RuneStone j2 j23 j236 j26
+    scala sundstromar.neoclassic.RuneStone eadgbe j2 j26
+
+:
+
+    scala sundstromar.neoclassic.RuneStone j23 cgdae j23
 
 ---
 
