@@ -319,11 +319,10 @@ object RuneStone {
     else if (args.length > accids.length)
       println("Request denied!")
     else {
-      val bops: Array[Boolean] = args.map(sentinel(_))
-      val bout: Boolean = bops.exists(bowl => bowl == true)
+      val numb: Int = args.count(sentinel(_))
       val span: Int = 9
       var tune: String = "beadgcf"
-      if (bout) println else palette
+      if (numb > 0) println else palette
       for (stem <- args) {
         if (stem.length < span) {
           if (guardian(stem)) tune = stem
