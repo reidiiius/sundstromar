@@ -134,9 +134,9 @@ object RuneStone {
 
   /** Timestamp used for version control
    *
-   *  scala> var epoch: String = RuneStone.aeon.toString()
+   *  scala> var aeon: String = RuneStone.epoch.toString()
    */
-  val aeon: Long = System.currentTimeMillis()
+  val epoch: Long = System.currentTimeMillis()
 
   /** Returns index used for string slice
    *
@@ -204,7 +204,7 @@ object RuneStone {
     } else acquire("i0")
   }
 
-  /** Returns List of strings for tuning
+  /** ※ Returns List of strings for tuning
    *
    *  scala> val p4t7: List[String] = RuneStone.beadgcf
    */
@@ -212,7 +212,7 @@ object RuneStone {
     List("cnc", "sgr", "tau", "lib", "psc", "leo", "cap")
   }
 
-  /** ibidem
+  /** ※ ibidem
    *
    *  scala> val a4t5: List[String] = RuneStone.bfbfb
    */
@@ -220,7 +220,7 @@ object RuneStone {
     List("cap", "cnc", "cap", "cnc", "cap")
   }
 
-  /** ibidem
+  /** ※ ibidem
    *
    *  scala> val p5t5: List[String] = RuneStone.cgdae
    */
@@ -228,7 +228,7 @@ object RuneStone {
     List("leo", "psc", "lib", "tau", "sgr")
   }
 
-  /** ibidem
+  /** ※ ibidem
    *
    *  scala> val gtr6: List[String] = RuneStone.eadgbe
    */
@@ -236,7 +236,7 @@ object RuneStone {
     List("leo", "cap", "tau", "lib", "psc", "leo")
   }
 
-  /** ibidem
+  /** ※ ibidem
    *
    *  scala> val m3t6: List[String] = RuneStone.fkbjdn
    */
@@ -278,12 +278,24 @@ object RuneStone {
    */
   def display(tune: String, stem: String): Unit = {
     if (accids.contains(stem)) {
+      val aeon: String = epoch.toString()
       val wire: String = acquire(stem)
       val sols: List[String] = pegasus(tune)
-      println("\t%s-%s-i%d".format(tune, stem, aeon))
+      println("\t%s-%s-i%s".format(tune, stem, aeon))
       lattice(sols, wire)
     } else {
       println("\t%s ?\n".format(stem))
+    }
+  }
+
+  /** Printout all diagrams with selected tuning
+   *
+   *  scala> RuneStone.pleroma("piano")
+   */
+  def pleroma(tune: String = "unison"): Unit = {
+    println
+    for (stem <- accids) {
+      display(tune, stem)
     }
   }
 
@@ -310,17 +322,40 @@ object RuneStone {
     stem.startsWith("n")
   }
 
+  /** Preparation for passing tuning string to pleroma
+   *
+   *  scala> RuneStone.copious(List("piano"))
+   */
+  def copious(lops: List[String] = Nil): Unit = {
+    val bozo: Boolean = lops.isEmpty
+    var tune: String = "beadgcf"
+    if (!bozo) {
+      val slot: Int = lops.indexWhere(guardian(_))
+      if (slot >= 0) {
+        val kind: String = lops(slot)
+        if (stocks.contains(kind)) tune = kind
+      }
+    }
+    pleroma(tune)
+  }
+
   /** Application entryway
    *
    *  scala> RuneStone.main(Array("eadgbe", "n0", "j3"))
    */
   def main(args: Array[String]): Unit = {
+    val span: Int = 9
     if (args.isEmpty) palette
     else if (args.length > accids.length)
       println("Request denied!")
+    else if (args.last == "gamut") {
+      val lops: List[String] = (
+        args.filter(stem => stem.length < span)
+      ).toList
+      copious(lops)
+    }
     else {
       val numb: Int = args.count(sentinel(_))
-      val span: Int = 9
       var tune: String = "beadgcf"
       if (numb > 0) println else palette
       for (stem <- args) {

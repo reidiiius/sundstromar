@@ -34,6 +34,10 @@ Command-line
 
     scala sundstromar.neoclassic.RuneStone j23 cgdae j23
 
+:
+
+    scala sundstromar.neoclassic.RuneStone cgdae gamut | sensible-pager
+
 ---
 
 ### Distribution
