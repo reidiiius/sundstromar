@@ -127,7 +127,7 @@ object RuneStone {
 
   /** List of instrument tunings
    *
-   *  scala> val thirds: String = RuneStone.stocks(4)
+   *  scala> val lutes: List[String] = RuneStone.stocks
    */
   val stocks: List[String] = List(
     "beadgcf", "bfbfb", "cgdae", "eadgbe", "fkbjdn", "piano")
@@ -157,12 +157,15 @@ object RuneStone {
 
   /** Printout List members formatted horizontally
    *
-   *  scala> RuneStone.banner(RuneStone.stocks)
+   *  scala> RuneStone.banner(lutes)
    */
-  def banner(slats: List[String]): Unit = {
-    print("\n\t")
-    for (stem <- slats) print("\t%s".format(stem))
-    println
+  def banner(slats: List[String] = Nil): Unit = {
+    if (slats.isEmpty) println("argument list empty")
+    else {
+      print("\n\t")
+      for (stem <- slats) printf("\t%s", stem)
+      println
+    }
   }
 
   /** Printout List members formatted columned
@@ -171,10 +174,10 @@ object RuneStone {
    */
   def recycle(keys: List[String], numb: Int): Unit = {
     if (numb >= (keys.length - 1)) {
-      print("\t%s".format(keys(numb)))
+      printf("\t%s", keys(numb))
     } else {
       if ((numb % 8) == 0) println
-      print("\t%s".format(keys(numb)))
+      printf("\t%s", keys(numb))
       recycle(keys, (numb + 1))
     }
   }
@@ -191,7 +194,7 @@ object RuneStone {
 
   /** Returns tuned string
    *
-   *  scala> var twine: String = RuneStone.tension(minion, 25)
+   *  scala> var yarn: String = RuneStone.tension(minion, 25)
    */
   def tension(wire: String, spot: Int): String = {
     val span: Int = wire.length
@@ -252,7 +255,7 @@ object RuneStone {
     var cord: String = tension(wire, 0)
     for (sign <- sols) {
       cord = tension(wire, obtain(sign))
-      println("\t%s".format(cord))
+      printf("\t%s\n", cord)
     }
     println
   }
@@ -277,26 +280,28 @@ object RuneStone {
    *  scala> RuneStone.display("cgdae", "j6")
    */
   def display(tune: String, stem: String): Unit = {
-    if (accids.contains(stem)) {
-      val aeon: String = epoch.toString()
-      val wire: String = acquire(stem)
-      val sols: List[String] = pegasus(tune)
-      println("\t%s-%s-i%s".format(tune, stem, aeon))
-      lattice(sols, wire)
-    } else {
-      println("\t%s ?\n".format(stem))
-    }
+    if (stocks.contains(tune)) {
+      if (accids.contains(stem)) {
+        val aeon: String = epoch.toString()
+        val wire: String = acquire(stem)
+        val sols: List[String] = pegasus(tune)
+        printf("\t%s-%s-i%s\n", tune, stem, aeon)
+        lattice(sols, wire)
+      } else printf("\t%s ?\n\n", stem)
+    } else printf("\t%s ?\n\n", tune)
   }
 
   /** Printout all diagrams with selected tuning
    *
-   *  scala> RuneStone.pleroma("piano")
+   *  scala> RuneStone.pleroma("bfbfb")
    */
-  def pleroma(tune: String = "unison"): Unit = {
-    println
-    for (stem <- accids) {
-      display(tune, stem)
-    }
+  def pleroma(tune: String = "piano"): Unit = {
+    if (stocks.contains(tune)) {
+      println
+      for (stem <- accids) {
+        display(tune, stem)
+      }
+    } else printf("\t%s ?\n\n", tune)
   }
 
   /** Determine whether string begins with be, bf, cg, ea, fk, pi
@@ -327,16 +332,17 @@ object RuneStone {
    *  scala> RuneStone.copious(List("piano"))
    */
   def copious(lops: List[String] = Nil): Unit = {
-    val bozo: Boolean = lops.isEmpty
-    var tune: String = "beadgcf"
-    if (!bozo) {
-      val slot: Int = lops.indexWhere(guardian(_))
-      if (slot >= 0) {
-        val kind: String = lops(slot)
-        if (stocks.contains(kind)) tune = kind
+    if (!stocks.isEmpty) {
+      val salt: String = stocks.last
+      if (!lops.isEmpty) {
+        val slot: Int = lops.indexWhere(guardian(_))
+        if (slot >= 0) {
+          val kind: String = lops(slot)
+          if (stocks.contains(kind)) pleroma(kind)
+          else printf("\t%s ?\n\n", kind)
+        } else pleroma(salt)
       }
     }
-    pleroma(tune)
   }
 
   /** Application entryway
@@ -353,8 +359,7 @@ object RuneStone {
         args.filter(stem => stem.length < span)
       ).toList
       copious(lops)
-    }
-    else {
+    } else {
       val numb: Int = args.count(sentinel(_))
       var tune: String = "beadgcf"
       if (numb > 0) println else palette
@@ -364,7 +369,7 @@ object RuneStone {
           if (sentinel(stem)) display(tune, stem)
         } else {
           val snip: String = stem.slice(0, span - 1)
-          println("\t%s.. ?\n".format(snip))
+          printf("\t%s.. ?\n\n", snip)
         }
       }
     }
