@@ -155,6 +155,23 @@ object RuneStone {
     }
   }
 
+  /** Return sorted list of dominos from Berzelian
+   *
+   *  scala> val mars: List[String] = RuneStone.solaria
+   */
+  def solaria: List[String] = {
+    val arks = new Array[String](Berzelian.size)
+    var arms = new Array[String](12)
+    var spot: Int = 0
+    Berzelian.foreach(duo => {
+      arms = duo._2.split((32).toChar)
+      if (arms(5).startsWith("Pb") || arms(11).startsWith("Fe"))
+        arks(spot) = duo._1
+        spot += 1
+    })
+    arks.filter(item => item != null).toList.sorted
+  }
+
   /** Printout List members formatted horizontally
    *
    *  scala> RuneStone.trellis(lutes)
@@ -260,7 +277,7 @@ object RuneStone {
     println
   }
 
-  /** Return List of strings for tuning
+  /** ※ ibidem
    *
    *  scala> val cello: List[String] = RuneStone.pegasus("cgdae")
    */
@@ -339,7 +356,7 @@ object RuneStone {
         if (slot >= 0) {
           val kind: String = lops(slot)
           if (stocks.contains(kind)) pleroma(kind)
-          else printf("\t%s ?\n\n", kind)
+          else printf("\n\t%s ?\n\n", kind)
         } else pleroma(salt)
       }
     }
@@ -359,7 +376,12 @@ object RuneStone {
         args.filter(stem => stem.length < span)
       ).toList
       copious(lops)
-    } else {
+    }
+    else if (args.last == "solar") {
+      recycle(solaria, 0)
+      println("\n")
+    }
+    else {
       val numb: Int = args.count(sentinel(_))
       var tune: String = "beadgcf"
       if (numb > 0) println else palette
@@ -367,7 +389,8 @@ object RuneStone {
         if (stem.length < span) {
           if (guardian(stem)) tune = stem
           if (sentinel(stem)) display(tune, stem)
-        } else {
+        }
+        else {
           val snip: String = stem.slice(0, span - 1)
           printf("\t%s.. ?\n\n", snip)
         }
