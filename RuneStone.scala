@@ -100,7 +100,7 @@ object RuneStone {
   "k1j56w7" -> "____ AuUr NpSn ____ TiHg FeFe HgTi ____ SnNp UrAu ____ ____ ",
   "k2j56w7" -> "NpCu ____ ____ FePu HgHg PuFe SnTi ____ CuNp PbAu ____ ____ ")
 
-  /** List of string keys from Berzelian
+  /** Sorted list of string keys from Berzelian
    *
    *  scala> val clefs: List[String] = RuneStone.accids
    */
@@ -138,13 +138,13 @@ object RuneStone {
    */
   val epoch: Long = System.currentTimeMillis()
 
-  /** Returns index used for string slice
+  /** Return index value form astral, used for string slice
    *
    *  scala> val five: Int = RuneStone.obtain("sco")
    */
   def obtain(sign: String): Int = astral.getOrElse(sign, 0)
 
-  /** Returns string value from Berzelian
+  /** Return string value from Berzelian
    *
    *  scala> val minion: String = RuneStone.acquire("j3")
    */
@@ -157,9 +157,9 @@ object RuneStone {
 
   /** Printout List members formatted horizontally
    *
-   *  scala> RuneStone.banner(lutes)
+   *  scala> RuneStone.trellis(lutes)
    */
-  def banner(slats: List[String] = Nil): Unit = {
+  def trellis(slats: List[String] = Nil): Unit = {
     if (slats.isEmpty) println("argument list empty")
     else {
       print("\n\t")
@@ -168,7 +168,7 @@ object RuneStone {
     }
   }
 
-  /** Printout List members formatted columned
+  /** Printout List members formatted and columned
    *
    *  scala> RuneStone.recycle(clefs, 0); println
    */
@@ -187,12 +187,12 @@ object RuneStone {
    *  scala> RuneStone.palette
    */
   def palette: Unit = {
-    banner(stocks)
+    trellis(stocks)
     recycle(accids, 0)
     println("\n")
   }
 
-  /** Returns tuned string
+  /** Return new string tuned according to passed index
    *
    *  scala> var yarn: String = RuneStone.tension(minion, 25)
    */
@@ -207,7 +207,7 @@ object RuneStone {
     } else acquire("i0")
   }
 
-  /** ※ Returns List of strings for tuning
+  /** ※ Return List of strings for tuning
    *
    *  scala> val p4t7: List[String] = RuneStone.beadgcf
    */
@@ -260,7 +260,7 @@ object RuneStone {
     println
   }
 
-  /** Returns List of strings for tuning
+  /** Return List of strings for tuning
    *
    *  scala> val cello: List[String] = RuneStone.pegasus("cgdae")
    */
