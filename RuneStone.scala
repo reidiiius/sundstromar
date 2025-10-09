@@ -175,6 +175,29 @@ object RuneStone {
     arks.toList
   }
 
+  /** Return sorted list of alloys from Berzelian
+   *
+   *  scala> val labs: List[String] = RuneStone.refinery
+   */
+  def refinery: List[String] = {
+    val arid = new Array[String](Berzelian.size * 8)
+    var arms = new Array[String](12)
+    var spot: Int = 0
+    for (yarn <- Berzelian.values) {
+      arms = yarn.split((32).toChar)
+      for (stem <- arms) {
+        if (!stem.startsWith("__")) {
+          arid(spot) = stem
+          spot += 1
+        }
+      }
+    }
+    val ares: Array[String] = arid.filter(item => item != null)
+    val arcs: Array[String] = ares.distinct
+    val arts: Array[String] = arcs.sorted
+    arts.toList
+  }
+
   /** Printout List members formatted horizontally
    *
    *  scala> RuneStone.trellis(lutes)
@@ -379,6 +402,10 @@ object RuneStone {
         args.filter(stem => stem.length < span)
       ).toList
       copious(lops)
+    }
+    else if (args.last == "metal") {
+      recycle(refinery, 0)
+      println("\n")
     }
     else if (args.last == "solar") {
       recycle(solaria, 0)
