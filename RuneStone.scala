@@ -160,16 +160,19 @@ object RuneStone {
    *  scala> val mars: List[String] = RuneStone.solaria
    */
   def solaria: List[String] = {
-    val arks = new Array[String](Berzelian.size)
+    val arid = new Array[String](Berzelian.size)
     var arms = new Array[String](12)
     var spot: Int = 0
     Berzelian.foreach(duo => {
       arms = duo._2.split((32).toChar)
-      if (arms(5).startsWith("Pb") || arms(11).startsWith("Fe"))
-        arks(spot) = duo._1
+      if (arms(5).startsWith("Pb") || arms(11).startsWith("Fe")) {
+        arid(spot) = duo._1
         spot += 1
+      }
     })
-    arks.filter(item => item != null).toList.sorted
+    val ares: Array[String] = arid.filter(item => item != null)
+    val arks: Array[String] = ares.sorted
+    arks.toList
   }
 
   /** Printout List members formatted horizontally
