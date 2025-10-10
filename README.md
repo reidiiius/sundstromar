@@ -20,6 +20,10 @@ Command-line
 
 :
 
+    scala sundstromar.neoclassic.RuneStone tutor
+
+:
+
     scala sundstromar.neoclassic.RuneStone solar
 
 :
