@@ -28,15 +28,15 @@ Command-line
 
 :
 
+    scala sundstromar.neoclassic.RuneStone AuSn fetch
+
+:
+
     scala sundstromar.neoclassic.RuneStone k6 j17
 
 :
 
     scala sundstromar.neoclassic.RuneStone eadgbe n0 j3
-
-:
-
-    scala sundstromar.neoclassic.RuneStone eadgbe j2 j26
 
 :
 

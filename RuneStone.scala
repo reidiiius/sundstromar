@@ -132,6 +132,13 @@ object RuneStone {
   val stocks: List[String] = List(
     "beadgcf", "bfbfb", "cgdae", "eadgbe", "fkbjdn", "piano")
 
+  /** List of utility processes
+   *
+   *  scala> val utils: List[String] = RuneStone.stools
+   */
+  val stools: List[String] = List(
+    "fetch", "gamut", "metal", "solar", "tutor")
+
   /** Timestamp used for version control
    *
    *  scala> var aeon: String = RuneStone.epoch.toString()
@@ -198,12 +205,32 @@ object RuneStone {
     arts.toList
   }
 
+  /** Return sorted list of prospective keys from Berzelian
+   *
+   *  scala> val lids: List[String] = RuneStone.beagle("NpFe")
+   */
+  def beagle(spat: String): List[String] = {
+    val arid = new Array[String](Berzelian.size)
+    var arms = new Array[String](12)
+    var spot: Int = 0
+    Berzelian.foreach(duo => {
+      arms = duo._2.split((32).toChar)
+      if (arms.contains(spat)) {
+        arid(spot) = duo._1
+        spot += 1
+      }
+    })
+    val ares: Array[String] = arid.filter(item => item != null)
+    val arks: Array[String] = ares.sorted
+    arks.toList
+  }
+
   /** Printout List members formatted horizontally
    *
    *  scala> RuneStone.trellis(lutes)
    */
   def trellis(slats: List[String] = Nil): Unit = {
-    if (slats.isEmpty) println("argument list empty")
+    if (slats.isEmpty) println("list empty")
     else {
       print("\n\t")
       for (stem <- slats) printf("\t%s", stem)
@@ -216,6 +243,7 @@ object RuneStone {
    *  scala> RuneStone.recycle(clefs, 0); println
    */
   def recycle(keys: List[String], numb: Int): Unit = {
+    if (keys.length == 1) println
     if (numb >= (keys.length - 1)) {
       printf("\t%s", keys(numb))
     } else {
@@ -230,6 +258,7 @@ object RuneStone {
    *  scala> RuneStone.palette
    */
   def palette: Unit = {
+    trellis(stools)
     trellis(stocks)
     recycle(accids, 0)
     println("\n")
@@ -397,6 +426,21 @@ object RuneStone {
     if (args.isEmpty) palette
     else if (args.length > accids.length)
       println("Request denied!")
+    else if (args.last == "fetch") {
+      val labs: List[String] = (args.filter(stem => stem.size < span &&
+        !guardian(stem) && !sentinel(stem) && refinery.contains(stem)
+      )).toList
+      if (labs.isEmpty) {
+        recycle(refinery, 0)
+        println("\n")
+      } else {
+        for (spat <- labs) {
+          recycle(beagle(spat), 0)
+          println
+        }
+        println
+      }
+    }
     else if (args.last == "gamut") {
       val lops: List[String] = (
         args.filter(stem => stem.length < span)
@@ -410,6 +454,15 @@ object RuneStone {
     else if (args.last == "solar") {
       recycle(solaria, 0)
       println("\n")
+    }
+    else if (args.last == "tutor") {
+      val opts: List[String] = List("", "tutor", "solar", "metal",
+        "AuSn fetch", "k6 j17", "eadgbe n0 j3", "j23 cgdae j23",
+        "cgdae gamut")
+      println
+      for (stem <- opts) {
+        printf("\tscala sundstromar.neoclassic.RuneStone %s\n\n", stem)
+      }
     }
     else {
       val numb: Int = args.count(sentinel(_))
