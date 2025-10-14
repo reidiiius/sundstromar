@@ -32,7 +32,7 @@ Command-line
 
 :
 
-    scala sundstromar.neoclassic.RuneStone AuSn fetch
+    scala sundstromar.neoclassic.RuneStone fetch AuSn
 
 :
 

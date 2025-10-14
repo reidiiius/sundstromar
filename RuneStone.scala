@@ -253,7 +253,7 @@ object RuneStone {
     }
   }
 
-  /** Printout tunings from stocks and keys from Berzelian
+  /** Printout process utilities, instrument tunings, and scale accidentals
    *
    *  scala> RuneStone.palette
    */
@@ -426,8 +426,8 @@ object RuneStone {
     if (args.isEmpty) palette
     else if (args.length > accids.length)
       println("Request denied!")
-    else if (args.last == "fetch") {
-      val labs: List[String] = (args.filter(stem => stem.size < span &&
+    else if (args.contains("fetch")) {
+      val labs: List[String] = (args.filter(stem => stem.size < 5 &&
         !guardian(stem) && !sentinel(stem) && refinery.contains(stem)
       )).toList
       if (labs.isEmpty) {
@@ -457,11 +457,12 @@ object RuneStone {
     }
     else if (args.last == "tutor") {
       val opts: List[String] = List("", "tutor", "solar", "metal",
-        "AuSn fetch", "k6 j17", "eadgbe n0 j3", "j23 cgdae j23",
+        "fetch AuSn", "k6 j17", "eadgbe n0 j3", "j23 cgdae j23",
         "cgdae gamut")
+      val path: String = "sundstromar.neoclassic.RuneStone"
       println
       for (stem <- opts) {
-        printf("\tscala sundstromar.neoclassic.RuneStone %s\n\n", stem)
+        printf("\tscala %s %s\n\n", path, stem)
       }
     }
     else {
