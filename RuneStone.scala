@@ -108,9 +108,9 @@ object RuneStone {
 
   /** Databank of indices used for slicing strings
    *
-   *  scala> val zero: Int = RuneStone.astral("oph")
+   *  scala> val zero: Int = RuneStone.Astral("oph")
    */
-  val astral: Map[String, Int] = Map(
+  val Astral: Map[String, Int] = Map(
     "aqr" -> 50,
     "ari" -> 40,
     "cap" -> 55,
@@ -125,14 +125,14 @@ object RuneStone {
     "tau" -> 35,
     "vir" -> 15)
 
-  /** List of instrument tunings
+  /** List of instrument tuning names
    *
    *  scala> val lutes: List[String] = RuneStone.stocks
    */
   val stocks: List[String] = List(
     "beadgcf", "bfbfb", "cgdae", "eadgbe", "fkbjdn", "piano")
 
-  /** List of utility processes
+  /** List of utility process names
    *
    *  scala> val utils: List[String] = RuneStone.stools
    */
@@ -145,11 +145,11 @@ object RuneStone {
    */
   val epoch: Long = System.currentTimeMillis()
 
-  /** Return index value form astral, used for string slice
+  /** Return index value from Astral, used for string slice
    *
    *  scala> val five: Int = RuneStone.obtain("sco")
    */
-  def obtain(sign: String): Int = astral.getOrElse(sign, 0)
+  def obtain(sign: String): Int = Astral.getOrElse(sign, 0)
 
   /** Return string value from Berzelian
    *
@@ -162,7 +162,7 @@ object RuneStone {
     }
   }
 
-  /** Return sorted list of dominos from Berzelian
+  /** Return sorted list of dominant keys from Berzelian
    *
    *  scala> val mars: List[String] = RuneStone.solaria
    */
@@ -278,7 +278,7 @@ object RuneStone {
     } else acquire("i0")
   }
 
-  /** ※ Return List of strings for tuning
+  /** ※ Return list of Astral key strings for tuning
    *
    *  scala> val p4t7: List[String] = RuneStone.beadgcf
    */
@@ -393,17 +393,17 @@ object RuneStone {
     stem.startsWith("n")
   }
 
-  /** Determine whether string is valid tuning
+  /** Determine whether string is valid stocks tuning name
    *
-   *  scala> var boom: Boolean = RuneStone.tunisia("cgdae")
+   *  scala> var bout: Boolean = RuneStone.tunisia("cgdae")
    */
   def tunisia(stem: String): Boolean = {
     guardian(stem) && stocks.contains(stem)
   }
 
-  /** Determine whether string is valid key
+  /** Determine whether string is valid Berzelian key
    *
-   *  scala> var bond: Boolean = RuneStone.whiskey("k5")
+   *  scala> var bozo: Boolean = RuneStone.whiskey("k5")
    */
   def whiskey(stem: String): Boolean = {
     sentinel(stem) && accids.contains(stem)
@@ -472,7 +472,7 @@ object RuneStone {
     else baggage(jobs)
   }
 
-  /** Tutorial with usage examples
+  /** Printout tutorial of usage examples
    *
    * scala> RuneStone.exemplar
    */
