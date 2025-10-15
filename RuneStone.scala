@@ -240,12 +240,12 @@ object RuneStone {
 
   /** Printout List members formatted and columned
    *
-   *  scala> RuneStone.recycle(clefs, 0); println
+   *  scala> RuneStone.recycle(clefs, 0)
    */
   def recycle(keys: List[String], numb: Int): Unit = {
     if (keys.length == 1) println
     if (numb >= (keys.length - 1)) {
-      printf("\t%s", keys(numb))
+      printf("\t%s\n", keys(numb))
     } else {
       if ((numb % 8) == 0) println
       printf("\t%s", keys(numb))
@@ -261,7 +261,6 @@ object RuneStone {
     trellis(stools)
     trellis(stocks)
     recycle(accids, 0)
-    println("\n")
   }
 
   /** Return new string tuned according to passed index
@@ -329,7 +328,6 @@ object RuneStone {
       cord = tension(wire, obtain(sign))
       printf("\t%s\n", cord)
     }
-    println
   }
 
   /** ※ ibidem
@@ -352,15 +350,11 @@ object RuneStone {
    *  scala> RuneStone.display("cgdae", "j6")
    */
   def display(tune: String, stem: String): Unit = {
-    if (stocks.contains(tune)) {
-      if (accids.contains(stem)) {
-        val aeon: String = epoch.toString()
-        val wire: String = acquire(stem)
-        val sols: List[String] = pegasus(tune)
-        printf("\t%s-%s-i%s\n", tune, stem, aeon)
-        lattice(sols, wire)
-      } else printf("\t%s ?\n\n", stem)
-    } else printf("\t%s ?\n\n", tune)
+    val aeon: String = epoch.toString()
+    val wire: String = acquire(stem)
+    val sols: List[String] = pegasus(tune)
+    printf("\n\t%s-%s-i%s\n", tune, stem, aeon)
+    lattice(sols, wire)
   }
 
   /** Printout all diagrams with selected tuning
@@ -369,11 +363,11 @@ object RuneStone {
    */
   def pleroma(tune: String = "piano"): Unit = {
     if (stocks.contains(tune)) {
-      println
       for (stem <- accids) {
         display(tune, stem)
       }
     } else printf("\t%s ?\n\n", tune)
+    println
   }
 
   /** Determine whether string begins with be, bf, cg, ea, fk, pi
@@ -399,21 +393,111 @@ object RuneStone {
     stem.startsWith("n")
   }
 
+  /** Determine whether string is valid tuning
+   *
+   *  scala> var boom: Boolean = RuneStone.tunisia("cgdae")
+   */
+  def tunisia(stem: String): Boolean = {
+    guardian(stem) && stocks.contains(stem)
+  }
+
+  /** Determine whether string is valid key
+   *
+   *  scala> var bond: Boolean = RuneStone.whiskey("k5")
+   */
+  def whiskey(stem: String): Boolean = {
+    sentinel(stem) && accids.contains(stem)
+  }
+
   /** Preparation for passing tuning string to pleroma
    *
    *  scala> RuneStone.copious(List("piano"))
    */
   def copious(lops: List[String] = Nil): Unit = {
-    if (!stocks.isEmpty) {
-      val salt: String = stocks.last
-      if (!lops.isEmpty) {
-        val slot: Int = lops.indexWhere(guardian(_))
-        if (slot >= 0) {
-          val kind: String = lops(slot)
-          if (stocks.contains(kind)) pleroma(kind)
-          else printf("\n\t%s ?\n\n", kind)
-        } else pleroma(salt)
+    val salt: String = stocks.last
+    if (lops.isEmpty) pleroma(salt)
+    else {
+      val slot: Int = lops.indexWhere(tunisia(_))
+      if (slot >= 0) {
+        pleroma(lops(slot))
+      } else pleroma(salt)
+    }
+  }
+
+  /** Printout keys correlated to alloys columned
+   *
+   *  scala> RuneStone.gondola(List("fetch", "FeNp", "FePu"))
+   */
+  def gondola(jobs: List[String]): Unit = {
+    val vats: List[String] = refinery
+    val labs: List[String] = jobs.filter(stem =>
+      stem.length < 5 && !sentinel(stem) &&
+      vats.contains(stem))
+    if (labs.isEmpty) {
+      recycle(vats, 0)
+      println
+    } else {
+      for (spat <- labs) {
+        recycle(beagle(spat), 0)
       }
+      println
+    }
+  }
+
+  /** Printout diagrams with selected tuning and keys
+   *
+   *  scala> RuneStone.baggage(List("eadgbe", "n0", "j3"))
+   */
+  def baggage(jobs: List[String]): Unit = {
+    val numb: Int = jobs.count(sentinel(_))
+    var tune: String = "beadgcf"
+    if (numb == 0) palette
+    else {
+      for (stem <- jobs) {
+        if (tunisia(stem)) tune = stem
+        else if (whiskey(stem)) display(tune, stem)
+        else if (stools.contains(stem)) ()
+        else printf("\n\t%s ?\n", stem)
+      }
+    }
+    println
+  }
+
+  /** Control flow branching between gondola and baggage
+   *
+   *  scala> RuneStone.freight(List("fetch", "AuHg", "AuPb"))
+   */
+  def freight(jobs: List[String]): Unit = {
+    if (jobs.contains("fetch")) gondola(jobs)
+    else baggage(jobs)
+  }
+
+  /** Tutorial with usage examples
+   *
+   * scala> RuneStone.exemplar
+   */
+  def exemplar: Unit = {
+    val opts: List[String] = List("", "tutor", "solar", "metal",
+      "fetch AuSn", "k6 j17", "eadgbe n0 j3", "j23 cgdae j23",
+      "cgdae gamut")
+    val path: String = "sundstromar.neoclassic.RuneStone"
+    println
+    for (stem <- opts) {
+      printf("\tscala %s %s\n\n", path, stem)
+    }
+  }
+
+  /** Control flow branching for utility routines
+   *
+   *  scala> RuneStone.caboose(List("eadgbe", "metal"))
+   */
+  def caboose(jobs: List[String]): Unit = {
+    jobs.last match {
+      case "gamut" => copious(jobs)
+      case "metal" => { recycle(refinery, 0); println }
+      case "solar" => { recycle(solaria, 0); println }
+      case "tutor" => exemplar
+      case _ => freight(jobs)
     }
   }
 
@@ -423,62 +507,26 @@ object RuneStone {
    */
   def main(args: Array[String]): Unit = {
     val span: Int = 9
-    if (args.isEmpty) palette
+    val arid = new Array[String](accids.length)
+    if (args.isEmpty) {
+      palette
+      println
+    }
     else if (args.length > accids.length)
       println("Request denied!")
-    else if (args.contains("fetch")) {
-      val labs: List[String] = (args.filter(stem => stem.size < 5 &&
-        !guardian(stem) && !sentinel(stem) && refinery.contains(stem)
-      )).toList
-      if (labs.isEmpty) {
-        recycle(refinery, 0)
-        println("\n")
-      } else {
-        for (spat <- labs) {
-          recycle(beagle(spat), 0)
-          println
-        }
-        println
-      }
-    }
-    else if (args.last == "gamut") {
-      val lops: List[String] = (
-        args.filter(stem => stem.length < span)
-      ).toList
-      copious(lops)
-    }
-    else if (args.last == "metal") {
-      recycle(refinery, 0)
-      println("\n")
-    }
-    else if (args.last == "solar") {
-      recycle(solaria, 0)
-      println("\n")
-    }
-    else if (args.last == "tutor") {
-      val opts: List[String] = List("", "tutor", "solar", "metal",
-        "fetch AuSn", "k6 j17", "eadgbe n0 j3", "j23 cgdae j23",
-        "cgdae gamut")
-      val path: String = "sundstromar.neoclassic.RuneStone"
-      println
-      for (stem <- opts) {
-        printf("\tscala %s %s\n\n", path, stem)
-      }
-    }
     else {
-      val numb: Int = args.count(sentinel(_))
-      var tune: String = "beadgcf"
-      if (numb > 0) println else palette
-      for (stem <- args) {
-        if (stem.length < span) {
-          if (guardian(stem)) tune = stem
-          if (sentinel(stem)) display(tune, stem)
-        }
-        else {
-          val snip: String = stem.slice(0, span - 1)
-          printf("\t%s.. ?\n\n", snip)
+      var spot: Int = 0
+      for (step <- args) {
+        if (step.length < span) {
+          arid(spot) = step
+          spot += 1
         }
       }
+      val ares: Array[String] = arid.filter(item => item != null)
+      if (ares.isEmpty) {
+        palette
+        println
+      } else caboose(ares.toList)
     }
   }
 
