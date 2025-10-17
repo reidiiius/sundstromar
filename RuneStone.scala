@@ -125,19 +125,19 @@ object RuneStone {
     "tau" -> 35,
     "vir" -> 15)
 
-  /** List of instrument tuning names
+  /** Sorted list of instrument tuning names
    *
    *  scala> val lutes: List[String] = RuneStone.stocks
    */
   val stocks: List[String] = List(
     "beadgcf", "bfbfb", "cgdae", "eadgbe", "fkbjdn", "piano")
 
-  /** List of utility process names
+  /** Sorted list of utility process names
    *
    *  scala> val utils: List[String] = RuneStone.stools
    */
   val stools: List[String] = List(
-    "fetch", "gamut", "metal", "solar", "tutor")
+    "fetch", "gamut", "metal", "solar", "tutor", "usage")
 
   /** Timestamp used for version control
    *
@@ -155,16 +155,14 @@ object RuneStone {
    *
    *  scala> val minion: String = RuneStone.acquire("j3")
    */
-  def acquire(clef: String): String = {
-    Berzelian.get(clef) match {
-      case Some(wire) => wire
-      case None => ""
-    }
+  def acquire(clef: String): String = Berzelian.get(clef) match {
+    case Some(wire) => wire
+    case None => "____ " * 12
   }
 
   /** Return sorted list of dominant keys from Berzelian
    *
-   *  scala> val mars: List[String] = RuneStone.solaria
+   *  scala> val lats: List[String] = RuneStone.solaria
    */
   def solaria: List[String] = {
     val arid = new Array[String](Berzelian.size)
@@ -225,31 +223,42 @@ object RuneStone {
     arks.toList
   }
 
-  /** Printout List members formatted horizontally
+  /** Printout list members formatted horizontally
    *
    *  scala> RuneStone.trellis(lutes)
    */
-  def trellis(slats: List[String] = Nil): Unit = {
-    if (slats.isEmpty) println("list empty")
+  def trellis(lops: List[String] = Nil): Unit = {
+    if (lops.isEmpty) println("\n\tlist empty")
     else {
-      print("\n\t")
-      for (stem <- slats) printf("\t%s", stem)
+      val cols: Int = 6
+      var numb: Int = 0
+      for (stem <- lops) {
+        if ((numb % cols) == 0) print("\n\t")
+        printf("\t%s", stem)
+        numb += 1
+      }
       println
     }
   }
 
-  /** Printout List members formatted and columned
+  /** Printout list members formatted and columned
    *
    *  scala> RuneStone.recycle(clefs, 0)
    */
-  def recycle(keys: List[String], numb: Int): Unit = {
-    if (keys.length == 1) println
-    if (numb >= (keys.length - 1)) {
-      printf("\t%s\n", keys(numb))
-    } else {
-      if ((numb % 8) == 0) println
-      printf("\t%s", keys(numb))
-      recycle(keys, (numb + 1))
+  def recycle(lots: List[String] = Nil, numb: Int = 0): Unit = {
+    val cols: Int = 8
+    val lend: Int = lots.length - 1
+    val boon: Boolean = (numb % cols) == 0
+    if (lots.isEmpty) println("\n\tlist empty")
+    else if (numb > lend) println("\n\tout of range")
+    else {
+      if (boon) println
+      if (numb >= lend) {
+        printf("\t%s\n", lots(numb))
+      } else {
+        printf("\t%s", lots(numb))
+        recycle(lots, (numb + 1))
+      }
     }
   }
 
@@ -332,17 +341,15 @@ object RuneStone {
 
   /** ※ ibidem
    *
-   *  scala> val cello: List[String] = RuneStone.pegasus("cgdae")
+   *  scala> val viol5: List[String] = RuneStone.pegasus("cgdae")
    */
-  def pegasus(tune: String): List[String] = {
-    tune match {
-      case "beadgcf" => beadgcf
-      case "bfbfb" => bfbfb
-      case "cgdae" => cgdae
-      case "eadgbe" => eadgbe
-      case "fkbjdn" => fkbjdn
-      case _ => List("oph")
-    }
+  def pegasus(tune: String): List[String] = tune match {
+    case "beadgcf" => beadgcf
+    case "bfbfb" => bfbfb
+    case "cgdae" => cgdae
+    case "eadgbe" => eadgbe
+    case "fkbjdn" => fkbjdn
+    case _ => List("oph")
   }
 
   /** Printout diagram with tuning, key, and timestamp
@@ -413,13 +420,13 @@ object RuneStone {
    *
    *  scala> RuneStone.copious(List("piano"))
    */
-  def copious(lops: List[String] = Nil): Unit = {
+  def copious(lobs: List[String] = Nil): Unit = {
     val salt: String = stocks.last
-    if (lops.isEmpty) pleroma(salt)
+    if (lobs.isEmpty) pleroma(salt)
     else {
-      val slot: Int = lops.indexWhere(tunisia(_))
+      val slot: Int = lobs.indexWhere(tunisia(_))
       if (slot >= 0) {
-        pleroma(lops(slot))
+        pleroma(lobs(slot))
       } else pleroma(salt)
     }
   }
@@ -428,9 +435,9 @@ object RuneStone {
    *
    *  scala> RuneStone.gondola(List("fetch", "FeNp", "FePu"))
    */
-  def gondola(jobs: List[String]): Unit = {
+  def gondola(lobs: List[String]): Unit = {
     val vats: List[String] = refinery
-    val labs: List[String] = jobs.filter(stem =>
+    val labs: List[String] = lobs.filter(stem =>
       stem.length < 5 && !sentinel(stem) &&
       vats.contains(stem))
     if (labs.isEmpty) {
@@ -448,12 +455,12 @@ object RuneStone {
    *
    *  scala> RuneStone.baggage(List("eadgbe", "n0", "j3"))
    */
-  def baggage(jobs: List[String]): Unit = {
-    val numb: Int = jobs.count(sentinel(_))
-    var tune: String = "beadgcf"
+  def baggage(lobs: List[String]): Unit = {
+    val numb: Int = lobs.count(sentinel(_))
+    var tune: String = "beadgcf" // default tuning
     if (numb == 0) palette
     else {
-      for (stem <- jobs) {
+      for (stem <- lobs) {
         if (tunisia(stem)) tune = stem
         else if (whiskey(stem)) display(tune, stem)
         else if (stools.contains(stem)) ()
@@ -467,9 +474,9 @@ object RuneStone {
    *
    *  scala> RuneStone.freight(List("fetch", "AuHg", "AuPb"))
    */
-  def freight(jobs: List[String]): Unit = {
-    if (jobs.contains("fetch")) gondola(jobs)
-    else baggage(jobs)
+  def freight(lobs: List[String]): Unit = {
+    if (lobs.contains("fetch")) gondola(lobs)
+    else baggage(lobs)
   }
 
   /** Printout tutorial of usage examples
@@ -491,14 +498,13 @@ object RuneStone {
    *
    *  scala> RuneStone.caboose(List("eadgbe", "metal"))
    */
-  def caboose(jobs: List[String]): Unit = {
-    jobs.last match {
-      case "gamut" => copious(jobs)
-      case "metal" => { recycle(refinery, 0); println }
-      case "solar" => { recycle(solaria, 0); println }
-      case "tutor" => exemplar
-      case _ => freight(jobs)
-    }
+  def caboose(lobs: List[String]): Unit = lobs.last match {
+    case "gamut" => copious(lobs)
+    case "metal" => { recycle(refinery, 0); println }
+    case "solar" => { recycle(solaria, 0); println }
+    case "tutor" => exemplar
+    case "usage" => { palette ; println }
+    case _ => freight(lobs)
   }
 
   /** Application entryway
