@@ -137,7 +137,7 @@ object RuneStone {
    *  scala> val utils: List[String] = RuneStone.stools
    */
   val stools: List[String] = List(
-    "fetch", "gamut", "metal", "solar", "tutor", "usage")
+    "fetch", "gamut", "metal", "polar", "tutor", "usage")
 
   /** Timestamp used for version control
    *
@@ -160,7 +160,7 @@ object RuneStone {
     case None => "____ " * 12
   }
 
-  /** Return sorted list of dominant keys from Berzelian
+  /** Return sorted list of Locrian keys from Berzelian
    *
    *  scala> val lats: List[String] = RuneStone.solaria
    */
@@ -177,6 +177,26 @@ object RuneStone {
     })
     val ares: Array[String] = arid.filter(item => item != null)
     val arks: Array[String] = ares.sorted
+    arks.toList
+  }
+
+  /** Return sorted list of Lydian keys from Berzelian
+   *
+   *  scala> val legs: List[String] = RuneStone.selenic
+   */
+  def selenic: List[String] = {
+    val arid = new Array[String](Berzelian.size)
+    val logs: List[String] = solaria
+    var slot: Int = 0
+    for (stem <- accids) {
+      if (!logs.contains(stem)) {
+        arid(slot) = stem
+        slot += 1
+      }
+    }
+    arid(slot) = "n0"
+    val ares: Array[String] = arid.filter(item => item != null)
+    val arks: Array[String] = ares.tail.sorted
     arks.toList
   }
 
@@ -260,6 +280,16 @@ object RuneStone {
         recycle(lots, (numb + 1))
       }
     }
+  }
+
+  /** Printout accidentals of Locrian and Lydian keys from Berzelian
+   *
+   *  scala> RuneStone.bipolar
+   */
+  def bipolar: Unit = {
+    recycle(solaria, 0)
+    recycle(selenic, 0)
+    println
   }
 
   /** Printout process utilities, instrument tunings, and scale accidentals
@@ -484,7 +514,7 @@ object RuneStone {
    * scala> RuneStone.exemplar
    */
   def exemplar: Unit = {
-    val opts: List[String] = List("", "tutor", "solar", "metal",
+    val opts: List[String] = List("", "tutor", "polar", "metal",
       "fetch AuSn", "k6 j17", "eadgbe n0 j3", "j23 cgdae j23",
       "cgdae gamut")
     val path: String = "sundstromar.neoclassic.RuneStone"
@@ -501,7 +531,7 @@ object RuneStone {
   def caboose(lobs: List[String]): Unit = lobs.last match {
     case "gamut" => copious(lobs)
     case "metal" => { recycle(refinery, 0); println }
-    case "solar" => { recycle(solaria, 0); println }
+    case "polar" => bipolar
     case "tutor" => exemplar
     case "usage" => { palette ; println }
     case _ => freight(lobs)
