@@ -130,14 +130,14 @@ object RuneStone {
    *  scala> val lutes: List[String] = RuneStone.stocks
    */
   val stocks: List[String] = List(
-    "beadgcf", "bfbfb", "cgdae", "eadgbe", "fkbjdn", "piano")
+    "beadgcf", "bfbfb", "cgdae", "dgdgc", "eadgbe", "fkbjdn", "piano")
 
   /** Sorted list of utility process names
    *
    *  scala> val utils: List[String] = RuneStone.stools
    */
   val stools: List[String] = List(
-    "fetch", "gamut", "metal", "polar", "tutor", "usage")
+    "fetch", "gamut", "metal", "polar", "query", "tutor", "usage")
 
   /** Timestamp used for version control
    *
@@ -168,13 +168,13 @@ object RuneStone {
     val arid = new Array[String](Berzelian.size)
     var arms = new Array[String](12)
     var spot: Int = 0
-    Berzelian.foreach(duo => {
-      arms = duo._2.split((32).toChar)
+    for ((clef, wire) <- Berzelian) {
+      arms = wire.split((32).toChar)
       if (arms(5).startsWith("Pb") || arms(11).startsWith("Fe")) {
-        arid(spot) = duo._1
+        arid(spot) = clef
         spot += 1
       }
-    })
+    }
     val ares: Array[String] = arid.filter(item => item != null)
     val arks: Array[String] = ares.sorted
     arks.toList
@@ -243,6 +243,22 @@ object RuneStone {
     arks.toList
   }
 
+  /** Return sorted list of matched keys from Berzelian
+   *
+   *  scala> RuneStone.recycle(RuneStone.enclave("56"), 0)
+   */
+  def enclave(spat: String): List[String] = {
+    val arid = new Array[String](accids.length)
+    var spot: Int = 0
+    for (stem <- accids if stem.contains(spat)) {
+      arid(spot) = stem
+      spot += 1
+    }
+    val ares: Array[String] = arid.filter(item => item != null)
+    if (ares.isEmpty) List(spat.concat(" ?"))
+    else ares.toList
+  }
+
   /** Printout list members formatted horizontally
    *
    *  scala> RuneStone.trellis(lutes)
@@ -250,10 +266,10 @@ object RuneStone {
   def trellis(lops: List[String] = Nil): Unit = {
     if (lops.isEmpty) println("\n\tlist empty")
     else {
-      val cols: Int = 6
+      val cols: Int = 8
       var numb: Int = 0
       for (stem <- lops) {
-        if ((numb % cols) == 0) print("\n\t")
+        if ((numb % cols) == 0) println
         printf("\t%s", stem)
         numb += 1
       }
@@ -335,6 +351,14 @@ object RuneStone {
 
   /** ※ ibidem
    *
+   *  scala> val sus5: List[String] = RuneStone.dgdgc
+   */
+  def dgdgc: List[String] = {
+    List("sgr", "tau", "lib", "tau", "lib")
+  }
+
+  /** ※ ibidem
+   *
    *  scala> val p5t5: List[String] = RuneStone.cgdae
    */
   def cgdae: List[String] = {
@@ -376,6 +400,7 @@ object RuneStone {
   def pegasus(tune: String): List[String] = tune match {
     case "beadgcf" => beadgcf
     case "bfbfb" => bfbfb
+    case "dgdgc" => dgdgc
     case "cgdae" => cgdae
     case "eadgbe" => eadgbe
     case "fkbjdn" => fkbjdn
@@ -415,6 +440,7 @@ object RuneStone {
     stem.startsWith("be") ||
     stem.startsWith("bf") ||
     stem.startsWith("cg") ||
+    stem.startsWith("dg") ||
     stem.startsWith("ea") ||
     stem.startsWith("fk") ||
     stem.startsWith("pi")
@@ -425,6 +451,7 @@ object RuneStone {
    *  scala> var bone: Boolean = RuneStone.sentinel("k5")
    */
   def sentinel(stem: String): Boolean = {
+    stem.startsWith("i") ||
     stem.startsWith("j") ||
     stem.startsWith("k") ||
     stem.startsWith("n")
@@ -481,6 +508,29 @@ object RuneStone {
     }
   }
 
+  /** Printout matched keys from Berzelian columned
+   *
+   *  scala> RuneStone.keyhole(List("query", "56", "w7"))
+   */
+  def keyhole(lobs: List[String]): Unit = {
+    val arid = new Array[String](accids.length)
+    var spot: Int = 0
+    for (stem <- lobs) {
+      if (!stocks.contains(stem) && !stools.contains(stem)) {
+        arid(spot) = stem
+        spot += 1
+      }
+    }
+    val ares: Array[String] = arid.filter(item => item != null)
+    if (ares.isEmpty) recycle(accids, 0)
+    else {
+      for (stem <- ares if stem.length < 5) {
+        recycle(enclave(stem))
+      }
+    }
+    println
+  }
+
   /** Printout diagrams with selected tuning and keys
    *
    *  scala> RuneStone.baggage(List("eadgbe", "n0", "j3"))
@@ -500,12 +550,13 @@ object RuneStone {
     println
   }
 
-  /** Control flow branching between gondola and baggage
+  /** Control flow branching between gondola, keyhole, and baggage
    *
    *  scala> RuneStone.freight(List("fetch", "AuHg", "AuPb"))
    */
   def freight(lobs: List[String]): Unit = {
     if (lobs.contains("fetch")) gondola(lobs)
+    else if (lobs.contains("query")) keyhole(lobs)
     else baggage(lobs)
   }
 
@@ -514,9 +565,9 @@ object RuneStone {
    * scala> RuneStone.exemplar
    */
   def exemplar: Unit = {
-    val opts: List[String] = List("", "tutor", "polar", "metal",
-      "fetch AuSn", "k6 j17", "eadgbe n0 j3", "j23 cgdae j23",
-      "cgdae gamut")
+    val opts: List[String] = List("", "tutor", "query 56",
+      "polar", "metal", "fetch AuSn", "k6 j17", "eadgbe n0 j3",
+      "j23 cgdae j23", "cgdae gamut")
     val path: String = "sundstromar.neoclassic.RuneStone"
     println
     for (stem <- opts) {
@@ -532,6 +583,7 @@ object RuneStone {
     case "gamut" => copious(lobs)
     case "metal" => { recycle(refinery, 0); println }
     case "polar" => bipolar
+    case "query" => keyhole(lobs)
     case "tutor" => exemplar
     case "usage" => { palette ; println }
     case _ => freight(lobs)

@@ -24,6 +24,10 @@ Command-line
 
 :
 
+    scala sundstromar.neoclassic.RuneStone query 56
+
+:
+
     scala sundstromar.neoclassic.RuneStone polar
 
 :

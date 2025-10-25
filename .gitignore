@@ -2,6 +2,9 @@
 *~
 *.class
 *.swp
+.bsp/
 neoclassic/
 postdoc/
+project/
+target/
 
