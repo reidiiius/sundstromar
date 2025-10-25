@@ -125,6 +125,19 @@ object RuneStone {
     "tau" -> 35,
     "vir" -> 15)
 
+  /** Databank of Astral key list for tuning
+   *
+   *  scala> val quartz: List[String] = RuneStone.Tuners("beadgcf")
+   */
+  val Tuners: Map[String, List[String]] = Map(
+    "beadgcf" -> List("cnc", "sgr", "tau", "lib", "psc", "leo", "cap"),
+    "bfbfb" -> List("cap", "cnc", "cap", "cnc", "cap"),
+    "cgdae" -> List("leo", "psc", "lib", "tau", "sgr"),
+    "dgdgc" -> List("sgr", "tau", "lib", "tau", "lib"),
+    "eadgbe" -> List("leo", "cap", "tau", "lib", "psc", "leo"),
+    "fkbjdn" -> List("lib", "aqr", "gem", "lib", "aqr", "gem"),
+    "piano" -> List("oph"))
+
   /** Sorted list of instrument tuning names
    *
    *  scala> val lutes: List[String] = RuneStone.stocks
@@ -150,6 +163,12 @@ object RuneStone {
    *  scala> val five: Int = RuneStone.obtain("sco")
    */
   def obtain(sign: String): Int = Astral.getOrElse(sign, 0)
+
+  /** Return list of Astral key strings from Tuners
+   *
+   *  scala> val viol5: List[String] = RuneStone.gearbox("cgdae")
+   */
+  def gearbox(tune: String): List[String] = Tuners.getOrElse(tune, List("oph"))
 
   /** Return string value from Berzelian
    *
@@ -333,54 +352,6 @@ object RuneStone {
     } else acquire("i0")
   }
 
-  /** ※ Return list of Astral key strings for tuning
-   *
-   *  scala> val p4t7: List[String] = RuneStone.beadgcf
-   */
-  def beadgcf: List[String] = {
-    List("cnc", "sgr", "tau", "lib", "psc", "leo", "cap")
-  }
-
-  /** ※ ibidem
-   *
-   *  scala> val a4t5: List[String] = RuneStone.bfbfb
-   */
-  def bfbfb: List[String] = {
-    List("cap", "cnc", "cap", "cnc", "cap")
-  }
-
-  /** ※ ibidem
-   *
-   *  scala> val sus5: List[String] = RuneStone.dgdgc
-   */
-  def dgdgc: List[String] = {
-    List("sgr", "tau", "lib", "tau", "lib")
-  }
-
-  /** ※ ibidem
-   *
-   *  scala> val p5t5: List[String] = RuneStone.cgdae
-   */
-  def cgdae: List[String] = {
-    List("leo", "psc", "lib", "tau", "sgr")
-  }
-
-  /** ※ ibidem
-   *
-   *  scala> val gtr6: List[String] = RuneStone.eadgbe
-   */
-  def eadgbe: List[String] = {
-    List("leo", "cap", "tau", "lib", "psc", "leo")
-  }
-
-  /** ※ ibidem
-   *
-   *  scala> val m3t6: List[String] = RuneStone.fkbjdn
-   */
-  def fkbjdn: List[String] = {
-    List("lib", "aqr", "gem", "lib", "aqr", "gem")
-  }
-
   /** Printout fingerboard diagram
    *
    *  scala> RuneStone.lattice(gtr6, minion)
@@ -393,20 +364,6 @@ object RuneStone {
     }
   }
 
-  /** ※ ibidem
-   *
-   *  scala> val viol5: List[String] = RuneStone.pegasus("cgdae")
-   */
-  def pegasus(tune: String): List[String] = tune match {
-    case "beadgcf" => beadgcf
-    case "bfbfb" => bfbfb
-    case "dgdgc" => dgdgc
-    case "cgdae" => cgdae
-    case "eadgbe" => eadgbe
-    case "fkbjdn" => fkbjdn
-    case _ => List("oph")
-  }
-
   /** Printout diagram with tuning, key, and timestamp
    *
    *  scala> RuneStone.display("cgdae", "j6")
@@ -414,7 +371,7 @@ object RuneStone {
   def display(tune: String, stem: String): Unit = {
     val aeon: String = epoch.toString()
     val wire: String = acquire(stem)
-    val sols: List[String] = pegasus(tune)
+    val sols: List[String] = gearbox(tune)
     printf("\n\t%s-%s-i%s\n", tune, stem, aeon)
     lattice(sols, wire)
   }
@@ -432,7 +389,7 @@ object RuneStone {
     println
   }
 
-  /** Determine whether string begins with be, bf, cg, ea, fk, pi
+  /** Determine whether string begins with be, bf, cg, dg, ea, fk, pi
    *
    *  scala> var boon: Boolean = RuneStone.guardian("cgdae")
    */
@@ -446,7 +403,7 @@ object RuneStone {
     stem.startsWith("pi")
   }
 
-  /** Determine whether string begins with j, k, n
+  /** Determine whether string begins with i, j, k, n
    *
    *  scala> var bone: Boolean = RuneStone.sentinel("k5")
    */
@@ -524,9 +481,12 @@ object RuneStone {
     val ares: Array[String] = arid.filter(item => item != null)
     if (ares.isEmpty) recycle(accids, 0)
     else {
+      var numb: Int = 0
       for (stem <- ares if stem.length < 5) {
         recycle(enclave(stem))
+        numb += 1
       }
+      if (numb < 1) println("\n\tCharacter amount exceeded!")
     }
     println
   }
@@ -583,7 +543,6 @@ object RuneStone {
     case "gamut" => copious(lobs)
     case "metal" => { recycle(refinery, 0); println }
     case "polar" => bipolar
-    case "query" => keyhole(lobs)
     case "tutor" => exemplar
     case "usage" => { palette ; println }
     case _ => freight(lobs)
