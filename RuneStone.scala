@@ -6,7 +6,7 @@ package sundstromar.neoclassic
  */
 object RuneStone {
 
-  /** Databank of musical scales
+  /** Databank of musical scale patterns with tonal inversions.
    *
    *  scala> val ionian: String = RuneStone.Berzelian("n0")
    */
@@ -100,13 +100,13 @@ object RuneStone {
   "k1j56w7" -> "____ AuUr NpSn ____ TiHg FeFe HgTi ____ SnNp UrAu ____ ____ ",
   "k2j56w7" -> "NpCu ____ ____ FePu HgHg PuFe SnTi ____ CuNp PbAu ____ ____ ")
 
-  /** Sorted list of string keys from Berzelian
+  /** Sorted list of string keys from Berzelian.
    *
    *  scala> val clefs: List[String] = RuneStone.accids
    */
   val accids: List[String] = Berzelian.keys.toList.sorted
 
-  /** Databank of indices used for slicing strings
+  /** Databank of indices used for slicing strings.
    *
    *  scala> val zero: Int = RuneStone.Astral("oph")
    */
@@ -125,7 +125,7 @@ object RuneStone {
     "tau" -> 35,
     "vir" -> 15)
 
-  /** Databank of Astral key list for tuning
+  /** Databank of Astral key list for tuning, see Astral.
    *
    *  scala> val quartz: List[String] = RuneStone.Tuners("beadgcf")
    */
@@ -138,39 +138,39 @@ object RuneStone {
     "fkbjdn" -> List("lib", "aqr", "gem", "lib", "aqr", "gem"),
     "piano" -> List("oph"))
 
-  /** Sorted list of instrument tuning names
+  /** Sorted list of instrument tuning names.
    *
    *  scala> val lutes: List[String] = RuneStone.stocks
    */
   val stocks: List[String] = List(
     "beadgcf", "bfbfb", "cgdae", "dgdgc", "eadgbe", "fkbjdn", "piano")
 
-  /** Sorted list of utility process names
+  /** Sorted list of utility process names.
    *
    *  scala> val utils: List[String] = RuneStone.stools
    */
   val stools: List[String] = List(
     "fetch", "gamut", "metal", "polar", "query", "tutor", "usage")
 
-  /** Timestamp used for version control
+  /** Timestamp used for version control.
    *
    *  scala> var aeon: String = RuneStone.epoch.toString()
    */
   val epoch: Long = System.currentTimeMillis()
 
-  /** Return index value from Astral, used for string slice
+  /** Return index value from Astral.
    *
    *  scala> val five: Int = RuneStone.obtain("sco")
    */
   def obtain(sign: String): Int = Astral.getOrElse(sign, 0)
 
-  /** Return list of Astral key strings from Tuners
+  /** Return list of Astral key strings from Tuners.
    *
    *  scala> val viol5: List[String] = RuneStone.gearbox("cgdae")
    */
   def gearbox(tune: String): List[String] = Tuners.getOrElse(tune, List("oph"))
 
-  /** Return string value from Berzelian
+  /** Return string value from Berzelian.
    *
    *  scala> val minion: String = RuneStone.acquire("j3")
    */
@@ -179,7 +179,7 @@ object RuneStone {
     case None => "____ " * 12
   }
 
-  /** Return sorted list of Locrian keys from Berzelian
+  /** Return sorted list of Locrian keys from Berzelian.
    *
    *  scala> val lats: List[String] = RuneStone.solaria
    */
@@ -199,7 +199,7 @@ object RuneStone {
     arks.toList
   }
 
-  /** Return sorted list of Lydian keys from Berzelian
+  /** Return sorted list of Lydian keys from Berzelian.
    *
    *  scala> val legs: List[String] = RuneStone.selenic
    */
@@ -219,7 +219,7 @@ object RuneStone {
     arks.toList
   }
 
-  /** Return sorted list of alloys from Berzelian
+  /** Return sorted list of alloys from Berzelian.
    *
    *  scala> val labs: List[String] = RuneStone.refinery
    */
@@ -242,7 +242,7 @@ object RuneStone {
     arts.toList
   }
 
-  /** Return sorted list of prospective keys from Berzelian
+  /** Return sorted list of prospective keys from Berzelian.
    *
    *  scala> val lids: List[String] = RuneStone.beagle("NpFe")
    */
@@ -262,7 +262,7 @@ object RuneStone {
     arks.toList
   }
 
-  /** Return sorted list of matched keys from Berzelian
+  /** Return sorted list of matched keys from Berzelian.
    *
    *  scala> RuneStone.recycle(RuneStone.enclave("56"), 0)
    */
@@ -278,7 +278,7 @@ object RuneStone {
     else ares.toList
   }
 
-  /** Printout list members formatted horizontally
+  /** Printout list members formatted horizontally and columned.
    *
    *  scala> RuneStone.trellis(lutes)
    */
@@ -296,7 +296,7 @@ object RuneStone {
     }
   }
 
-  /** Printout list members formatted and columned
+  /** Printout list members formatted horizontally and columned.
    *
    *  scala> RuneStone.recycle(clefs, 0)
    */
@@ -317,7 +317,7 @@ object RuneStone {
     }
   }
 
-  /** Printout accidentals of Locrian and Lydian keys from Berzelian
+  /** Printout accidentals of Locrian and Lydian keys partitioned.
    *
    *  scala> RuneStone.bipolar
    */
@@ -327,7 +327,7 @@ object RuneStone {
     println
   }
 
-  /** Printout process utilities, instrument tunings, and scale accidentals
+  /** Printout utilities, tunings, and accidental keys partitioned.
    *
    *  scala> RuneStone.palette
    */
@@ -337,7 +337,7 @@ object RuneStone {
     recycle(accids, 0)
   }
 
-  /** Return new string tuned according to passed index
+  /** Return string tuned according to passed slice index.
    *
    *  scala> var yarn: String = RuneStone.tension(minion, 25)
    */
@@ -352,9 +352,9 @@ object RuneStone {
     } else acquire("i0")
   }
 
-  /** Printout fingerboard diagram
+  /** Printout tonal matrix according to passed tuning list and string.
    *
-   *  scala> RuneStone.lattice(gtr6, minion)
+   *  scala> RuneStone.lattice(viol5, ionian)
    */
   def lattice(sols: List[String], wire: String): Unit = {
     var cord: String = tension(wire, 0)
@@ -364,7 +364,7 @@ object RuneStone {
     }
   }
 
-  /** Printout diagram with tuning, key, and timestamp
+  /** Printout tuning, key, and timestamp banner with tonal matrix.
    *
    *  scala> RuneStone.display("cgdae", "j6")
    */
@@ -376,7 +376,7 @@ object RuneStone {
     lattice(sols, wire)
   }
 
-  /** Printout all diagrams with selected tuning
+  /** Printout all tonal matrices with passed tuning string.
    *
    *  scala> RuneStone.pleroma("bfbfb")
    */
@@ -389,7 +389,7 @@ object RuneStone {
     println
   }
 
-  /** Determine whether string begins with be, bf, cg, dg, ea, fk, pi
+  /** Determine if passed string begins with be, bf, cg, dg, ea, fk, pi.
    *
    *  scala> var boon: Boolean = RuneStone.guardian("cgdae")
    */
@@ -403,7 +403,7 @@ object RuneStone {
     stem.startsWith("pi")
   }
 
-  /** Determine whether string begins with i, j, k, n
+  /** Determine whether passed string begins with i, j, k, n.
    *
    *  scala> var bone: Boolean = RuneStone.sentinel("k5")
    */
@@ -414,7 +414,7 @@ object RuneStone {
     stem.startsWith("n")
   }
 
-  /** Determine whether string is valid stocks tuning name
+  /** Determine whether passed string is valid stocks tuning name.
    *
    *  scala> var bout: Boolean = RuneStone.tunisia("cgdae")
    */
@@ -422,7 +422,7 @@ object RuneStone {
     guardian(stem) && stocks.contains(stem)
   }
 
-  /** Determine whether string is valid Berzelian key
+  /** Determine whether passed string is valid accids member.
    *
    *  scala> var bozo: Boolean = RuneStone.whiskey("k5")
    */
@@ -430,7 +430,7 @@ object RuneStone {
     sentinel(stem) && accids.contains(stem)
   }
 
-  /** Preparation for passing tuning string to pleroma
+  /** Preparation for passing tuning string to pleroma.
    *
    *  scala> RuneStone.copious(List("piano"))
    */
@@ -445,7 +445,7 @@ object RuneStone {
     }
   }
 
-  /** Printout keys correlated to alloys columned
+  /** Printout keys correlated to alloys columned and partitioned.
    *
    *  scala> RuneStone.gondola(List("fetch", "FeNp", "FePu"))
    */
@@ -465,7 +465,7 @@ object RuneStone {
     }
   }
 
-  /** Printout matched keys from Berzelian columned
+  /** Printout sieved members from accids columned and partitioned.
    *
    *  scala> RuneStone.keyhole(List("query", "56", "w7"))
    */
@@ -491,7 +491,7 @@ object RuneStone {
     println
   }
 
-  /** Printout diagrams with selected tuning and keys
+  /** Printout tonal matrices with selected tuning and keys.
    *
    *  scala> RuneStone.baggage(List("eadgbe", "n0", "j3"))
    */
@@ -510,7 +510,7 @@ object RuneStone {
     println
   }
 
-  /** Control flow branching between gondola, keyhole, and baggage
+  /** Control flow branching between gondola, keyhole, and baggage.
    *
    *  scala> RuneStone.freight(List("fetch", "AuHg", "AuPb"))
    */
@@ -520,12 +520,12 @@ object RuneStone {
     else baggage(lobs)
   }
 
-  /** Printout tutorial of usage examples
+  /** Printout tutorial of usage examples.
    *
    * scala> RuneStone.exemplar
    */
   def exemplar: Unit = {
-    val opts: List[String] = List("", "tutor", "query 56",
+    val opts: List[String] = List("usage", "tutor", "query 56",
       "polar", "metal", "fetch AuSn", "k6 j17", "eadgbe n0 j3",
       "j23 cgdae j23", "cgdae gamut")
     val path: String = "sundstromar.neoclassic.RuneStone"
@@ -535,7 +535,7 @@ object RuneStone {
     }
   }
 
-  /** Control flow branching for utility routines
+  /** Control flow branching for utility routines.
    *
    *  scala> RuneStone.caboose(List("eadgbe", "metal"))
    */
@@ -548,7 +548,7 @@ object RuneStone {
     case _ => freight(lobs)
   }
 
-  /** Application entryway
+  /** Application entryway.
    *
    *  scala> RuneStone.main(Array("eadgbe", "n0", "j3"))
    */

@@ -1,4 +1,8 @@
 
+description := "Chordophone Cosmography"
+isSnapshot := true
 name := "sundstromar"
-version := "0.2.0"
+organization := "reidiiius"
+scalaVersion := "2.12.20"
+version := "0.2.1"
 
